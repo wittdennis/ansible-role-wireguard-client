@@ -1,38 +1,44 @@
-Role Name
-=========
+# wireguard_client
 
-A brief description of the role goes here.
+Role to connect a machine to a wireguard network.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Kernel which supports wireguard.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+# Required variables
+wireguard_client_iface_address: "" # Adresses of the wireguard machine
+wireguard_client_private_key: "" # Private key of the machine
+wireguard_client_public_key: "" # Public key of the machine
+wireguard_client_endpoint: "" # Endpoint address of the wireguard server (e.g.: wg.example.com:51820)
 
-Dependencies
-------------
+# Optional variables
+wireguard_client_allowed_ips: ""
+wireguard_client_preshared_key: ""
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# Defaults
+wireguard_client_iface_name: wg0 # Name for the interface
+wireguard_client_iface_mtu: 1300
+wireguard_client_persistent_keep_alive: 15
+```
 
-Example Playbook
-----------------
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - {
+            role: wittdennis.wireguard_client,
+            wireguard_client_iface_address: 172.30.0.1/32,3d0d:3568:2136:c971:007f::1/128
+            wireguard_client_private_key: <redacted>
+            wireguard_client_public_key: <redacted>
+            wireguard_client_endpoint: wg.example.com:51820
+           }
 
-License
--------
+## License
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+MIT

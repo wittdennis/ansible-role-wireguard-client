@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+
+description="WireGuard Quick for {{ wireguard_client_iface_name }}"
+
+depend() {
+    need localmount
+    need net
+}
+
+start() {
+    wg-quick up {{ wireguard_client_iface_name }}
+}
+
+stop() {
+    wg-quick down {{ wireguard_client_iface_name }}
+}

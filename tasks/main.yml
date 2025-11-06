@@ -1,2 +1,96 @@
+# code: language=ansible
 ---
-# tasks file for role_remplate
+- name: Ensure iface address is defined
+  ansible.builtin.assert:
+    that:
+      - wireguard_client_iface_address is defined
+      - wireguard_client_iface_address | length > 0
+      - wireguard_client_iface_address != None
+    fail_msg: "wireguard_client_iface_address needs to be set in order for the role to work"
+
+- name: Ensure private key is defined
+  ansible.builtin.assert:
+    that:
+      - wireguard_client_private_key is defined
+      - wireguard_client_private_key | length > 0
+      - wireguard_client_private_key != None
+    fail_msg: "wireguard_client_private_key needs to be set in order for the role to work"
+
+- name: Ensure public key is defined
+  ansible.builtin.assert:
+    that:
+      - wireguard_client_public_key is defined
+      - wireguard_client_public_key | length > 0
+      - wireguard_client_public_key != None
+    fail_msg: "wireguard_client_public_key needs to be set in order for the role to work"
+
+- name: Ensure endpoint is defined
+  ansible.builtin.assert:
+    that:
+      - wireguard_client_endpoint is defined
+      - wireguard_client_endpoint | length > 0
+      - wireguard_client_endpoint != None
+    fail_msg: "wireguard_client_endpoint needs to be set in order for the role to work"
+
+- name: Ensure wireguard kernel module is loaded
+  become: true
+  community.general.modprobe:
+    name: wireguard
+    state: present
+    persistent: present
+
+- name: Ensure wireguard-tools are present
+  become: true
+  ansible.builtin.package:
+    name: wireguard-tools
+    state: present
+
+- name: Create wireguard directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/wireguard
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Setup wireguard.conf
+  become: true
+  ansible.builtin.template:
+    src: wg.conf.jinja2
+    dest: "/etc/wireguard/{{ wireguard_client_iface_name }}.conf"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Check if initrc system
+  register: initrc_system
+  ansible.builtin.stat:
+    path: /etc/init.d
+
+- name: Start wireguard interface (wg-quick, systemd)
+  when: not initrc_system.stat.isdir is defined and not initrc_system.stat.isdir
+  become: true
+  ansible.builtin.systemd_service:
+    name: "wg-quick@{{ wireguard_client_iface_name }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Template init.rc script for wireguard interface
+  when: initrc_system.stat.isdir is defined and initrc_system.stat.isdir
+  become: true
+  ansible.builtin.template:
+    src: wg-init.jinja2
+    dest: "/etc/init.d/wireguard_{{ wireguard_client_iface_name }}"
+    mode: "0700"
+    owner: root
+    group: root
+
+- name: Start wireguard interface (wg-quick, initrc)
+  when: initrc_system.stat.isdir is defined and initrc_system.stat.isdir
+  become: true
+  ansible.builtin.service:
+    name: "wireguard_{{ wireguard_client_iface_name }}"
+    state: started
+    enabled: true

@@ -1,2 +1,6 @@
 ---
-# defaults file for role_remplate
+wireguard_client_iface_name: wg0
+wireguard_client_iface_mtu: 1300
+wireguard_client_persistent_keep_alive: 15
+wireguard_client_allowed_ips: ""
+wireguard_client_preshared_key: ""
