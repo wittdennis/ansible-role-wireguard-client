@@ -63,13 +63,8 @@
     group: root
     mode: "0600"
 
-- name: Check if initrc system
-  register: initrc_system
-  ansible.builtin.stat:
-    path: /etc/init.d
-
 - name: Start wireguard interface (wg-quick, systemd)
-  when: not initrc_system.stat.isdir is defined and not initrc_system.stat.isdir
+  when: ansible_service_mgr == "systemd"
   become: true
   ansible.builtin.systemd_service:
     name: "wg-quick@{{ wireguard_client_iface_name }}"
@@ -78,7 +73,7 @@
     daemon_reload: true
 
 - name: Template init.rc script for wireguard interface
-  when: initrc_system.stat.isdir is defined and initrc_system.stat.isdir
+  when: ansible_service_mgr == "openrc"
   become: true
   ansible.builtin.template:
     src: wg-init.jinja2
@@ -87,8 +82,8 @@
     owner: root
     group: root
 
-- name: Start wireguard interface (wg-quick, initrc)
-  when: initrc_system.stat.isdir is defined and initrc_system.stat.isdir
+- name: Start wireguard interface (wg-quick, openrc)
+  when: ansible_service_mgr == "openrc"
   become: true
   ansible.builtin.service:
     name: "wireguard_{{ wireguard_client_iface_name }}"
