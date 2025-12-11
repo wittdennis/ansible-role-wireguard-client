@@ -1,2 +1,15 @@
+# code: language=ansible
 ---
-# handlers file for role_remplate
+- name: Restart wireguard
+  when: ansible_service_mgr == "openrc"
+  become: true
+  ansible.builtin.service:
+    name: "wireguard_{{ wireguard_client_iface_name }}"
+    state: restarted
+
+- name: Restart wireguard
+  when: ansible_service_mgr == "systemd"
+  become: true
+  ansible.builtin.systemd_service:
+    name: "wg-quick@{{ wireguard_client_iface_name }}"
+    state: restarted
