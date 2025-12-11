@@ -62,6 +62,7 @@
     owner: root
     group: root
     mode: "0600"
+  notify: Restart wireguard
 
 - name: Start wireguard interface (wg-quick, systemd)
   when: ansible_service_mgr == "systemd"
