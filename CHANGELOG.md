@@ -2,6 +2,23 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.2.0](https://github.com/wittdennis/ansible-role-wireguard-client/compare/642d954c0349fa1a4136e3f6122e2b6afbf8d237..0.2.0) - 2025-12-11
+#### Features
+- restart wireguard interface after config change - ([c21ed87](https://github.com/wittdennis/ansible-role-wireguard-client/commit/c21ed87ae877b4bfae247813906c13e142d88b76)) - Dennis Witt
+#### Bug Fixes
+- don't use auto injected ansible facts - ([20b1822](https://github.com/wittdennis/ansible-role-wireguard-client/commit/20b1822583acbec531b4bad49cdd54ff2f063278)) - Dennis Witt
+#### Miscellaneous Chores
+- (**deps**) update pre-commit hook ansible-community/ansible-lint to v25.12.1 - ([b872f73](https://github.com/wittdennis/ansible-role-wireguard-client/commit/b872f73986c0d419d0d4dd44c924dced7e6dad64)) - wittdennis-renovate[bot]
+- (**deps**) update wittdennis/pipelines action to v1.13.0 - ([02f35d4](https://github.com/wittdennis/ansible-role-wireguard-client/commit/02f35d4fa1e6637dfcd5a9badc281bb3abc35fbe)) - wittdennis-renovate[bot]
+- (**deps**) update wittdennis/pipelines action to v1.12.11 - ([67e4878](https://github.com/wittdennis/ansible-role-wireguard-client/commit/67e48784904956a7f352ec30b7a52f8c4a948bd9)) - wittdennis-renovate[bot]
+- (**deps**) update wittdennis/pipelines action to v1.12.10 - ([7cca931](https://github.com/wittdennis/ansible-role-wireguard-client/commit/7cca93107c80e9a40b2e4f1d5193484a8ecc7dd3)) - wittdennis-renovate[bot]
+- (**deps**) update pre-commit hook ansible-community/ansible-lint to v25.12.0 - ([452f2d4](https://github.com/wittdennis/ansible-role-wireguard-client/commit/452f2d47b7c5ef45595fbe4a0b08bb1fb8447f07)) - wittdennis-renovate[bot]
+- (**deps**) update pre-commit hook ansible-community/ansible-lint to v25.11.1 - ([184edd8](https://github.com/wittdennis/ansible-role-wireguard-client/commit/184edd80ea22918d59acb12a322fc30035b09830)) - wittdennis-renovate[bot]
+- (**deps**) update wittdennis/pipelines action to v1.12.9 - ([761f959](https://github.com/wittdennis/ansible-role-wireguard-client/commit/761f95936e424643220f356b730fb39fda5e2fe9)) - wittdennis-renovate[bot]
+- (**deps**) update wittdennis/pipelines action to v1.12.8 - ([642d954](https://github.com/wittdennis/ansible-role-wireguard-client/commit/642d954c0349fa1a4136e3f6122e2b6afbf8d237)) - wittdennis-renovate[bot]
+
+- - -
+
 ## [0.1.1](https://github.com/wittdennis/ansible-role-wireguard-client/compare/9f5a6d4706d1bcaf3e1ed78ad34119054a2e04d5..0.1.1) - 2025-11-13
 #### Bug Fixes
 - correctly start service depending on init system - ([f80f0c1](https://github.com/wittdennis/ansible-role-wireguard-client/commit/f80f0c16442cf422ec00eb5ae7dd060cdfcf1805)) - Dennis Witt
