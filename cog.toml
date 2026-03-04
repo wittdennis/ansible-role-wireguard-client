@@ -19,12 +19,12 @@ skip_untracked = false
 [commit_types]
 
 [changelog]
-authors = []
-path = "CHANGELOG.md"
+authors = [] 
+owner = "wittdennis" 
+path = "CHANGELOG.md" 
+remote = "github.com" 
+repository = "ansible-role-wireguard-client" 
 template = "remote" # to change to remote set repository to repository name and uncomment remote and owner
-repository = "ansible-role-wireguard-client"
-remote = "github.com"
-owner = "wittdennis"
 
 [bump_profiles]
 
